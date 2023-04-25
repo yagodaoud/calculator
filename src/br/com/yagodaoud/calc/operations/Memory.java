@@ -48,6 +48,8 @@ public class Memory {
         } else if (commandType == CommandType.NUMBER || commandType == CommandType.COMMA) {
             currentText = replace ? value : currentText + value;
             replace = false;
+        } else if (getOperationResult() == "Infinity"){
+            currentText = "Error";
         } else {
             replace = true;
             currentText = getOperationResult();
