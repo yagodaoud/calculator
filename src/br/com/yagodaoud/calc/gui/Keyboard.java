@@ -1,9 +1,13 @@
 package br.com.yagodaoud.calc.gui;
 
+import br.com.yagodaoud.calc.operations.Memory;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Keyboard extends JPanel {
+public class Keyboard extends JPanel implements ActionListener {
 
     private final Color DARK_GREY = new Color(68, 68, 68);
     private final Color LIGHT_GREY = new Color(99, 99, 99);
@@ -22,7 +26,7 @@ public class Keyboard extends JPanel {
 
         //1st row
         addButton("AC", DARK_GREY, constraints, 0, 0);
-        addButton("+/-", DARK_GREY, constraints, 1, 0);
+        addButton("±", DARK_GREY, constraints, 1, 0);
         addButton("%", DARK_GREY, constraints, 2, 0);
         addButton("/", ORANGE, constraints, 3, 0);
 
@@ -59,6 +63,15 @@ public class Keyboard extends JPanel {
         constraints.gridx = x;
         constraints.gridy = y;
         Button button = new Button(text, color);
+        button.addActionListener(this);
         add(button, constraints);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() instanceof JButton) {
+            JButton button = (JButton) e.getSource();
+            Memory.getInstance().processCommand(button.getText());
+        }
     }
 }
